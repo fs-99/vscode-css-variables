@@ -138,7 +138,13 @@ export default class CSSVariableManager {
             },
           };
 
-          const culoriColor = culori.parse(decl.value);
+          let culoriColor: culori.Color | undefined;
+          try {
+            culoriColor = culori.parse(decl.value);
+          } catch (error) {
+            // If culori cannot parse the value, it's not a color
+            // This is expected for non-color values like font definitions
+          }
 
           if (culoriColor) {
             variable.color = culoriColorToVscodeColor(culoriColor);
@@ -149,7 +155,7 @@ export default class CSSVariableManager {
         }
       });
     } catch (error) {
-      console.error(filePath);
+      console.error(`Error parsing file ${filePath}:`, error);
     }
   };
 
@@ -207,6 +213,7 @@ export default class CSSVariableManager {
           // Culori will throw on some invalid variables, we should not crash the server
           culoriColor = culori.parse(resolvedValue);
         } catch {
+          // If culori cannot parse the resolved value, it's not a color
           return;
         }
 

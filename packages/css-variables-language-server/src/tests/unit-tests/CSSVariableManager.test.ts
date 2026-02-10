@@ -191,8 +191,10 @@ describe('CSS Variable Manager', () => {
     expect(allVars.get('--font-size').symbol.value).toEqual('14px');
     expect(allVars.get('--font-size').color).toBeUndefined();
 
-    expect(allVars.get('--font').symbol.value).toEqual("700 14px/16px 'Helvetica Neue', sans-serif");
-    expect(allVars.get('--font').color).toBeUndefined();
+    const fontVar = allVars.get('--font');
+    expect(fontVar).toBeDefined();
+    expect(fontVar.symbol.value).toEqual("700 14px/16px 'Helvetica Neue', sans-serif");
+    expect(fontVar.color).toBeUndefined();
 
     // Test cross-file resolution
     expect(allVars.get('--child-color-red').symbol.value).toEqual('var(--color-red)');
