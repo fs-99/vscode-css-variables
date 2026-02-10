@@ -1,5 +1,11 @@
 # css-variables-language-server
 
+## 2.8.4
+
+### Patch Changes
+
+- 46cff4b: fix detect for font value variables
+
 ## 2.8.3
 
 ### Patch Changes
